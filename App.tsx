@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Page } from './types';
 import { SCHOOL_NAME, Icons } from './constants';
@@ -8,6 +9,7 @@ import InterclassesPage from './pages/InterclassesPage';
 import AnnouncementsPage from './pages/AnnouncementsPage';
 import GalleryPage from './pages/GalleryPage';
 import AboutPage from './pages/AboutPage';
+import FeedbackPage from './pages/FeedbackPage';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -32,12 +34,14 @@ const App: React.FC = () => {
       case 'announcements': return <AnnouncementsPage />;
       case 'gallery': return <GalleryPage />;
       case 'about': return <AboutPage />;
+      case 'feedback': return <FeedbackPage onBack={() => setCurrentPage('home')} />;
       default: return <HomePage onNavigate={setCurrentPage} />;
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
+      {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-blue-800 text-white shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-16">
@@ -52,6 +56,7 @@ const App: React.FC = () => {
               <span className="font-bold text-lg sm:hidden">{SCHOOL_NAME}</span>
             </div>
 
+            {/* Desktop Menu */}
             <nav className="hidden lg:flex space-x-1">
               {navigation.map((item) => (
                 <button
@@ -66,6 +71,7 @@ const App: React.FC = () => {
               ))}
             </nav>
 
+            {/* Mobile Menu Button */}
             <button 
               className="lg:hidden p-2 rounded-md hover:bg-blue-700 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -77,8 +83,9 @@ const App: React.FC = () => {
           </div>
         </div>
 
+        {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-blue-900 border-t border-blue-700 absolute w-full shadow-2xl">
+          <div className="lg:hidden bg-blue-900 border-t border-blue-700 absolute w-full transition-all duration-300">
             <nav className="flex flex-col p-4 space-y-2">
               {navigation.map((item) => (
                 <button
@@ -100,10 +107,12 @@ const App: React.FC = () => {
         )}
       </header>
 
+      {/* Main Content */}
       <main className="flex-grow pt-16">
         {renderPage()}
       </main>
 
+      {/* Footer */}
       <footer className="bg-blue-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
@@ -126,6 +135,7 @@ const App: React.FC = () => {
                 <li><button onClick={() => setCurrentPage('announcements')} className="hover:text-yellow-400 transition-colors">Comunicados</button></li>
                 <li><button onClick={() => setCurrentPage('studies')} className="hover:text-yellow-400 transition-colors">Estudos & Vestibulares</button></li>
                 <li><button onClick={() => setCurrentPage('interclasses')} className="hover:text-yellow-400 transition-colors">Interclasses</button></li>
+                <li><button onClick={() => setCurrentPage('feedback')} className="hover:text-yellow-400 transition-colors">Ouvidoria & Sugestões</button></li>
               </ul>
             </div>
             <div>
@@ -133,12 +143,13 @@ const App: React.FC = () => {
               <p className="text-sm text-blue-200">
                 Email: e907030a@educacao.sp.gov.br<br />
                 Tel: (11) 4636-6322 / 4636-0433<br />
-                Endereço: Rua Dobrada, 65 – Jardim São José, Poá – SP
+                Endereço: Rua Dobrada, 65 – Jardim São José, Poá – SP, CEP 08567-360
               </p>
             </div>
           </div>
           <div className="border-t border-blue-800 mt-8 pt-8 text-center text-sm text-blue-400">
-            &copy; {new Date().getFullYear()} {SCHOOL_NAME}. Desenvolvido pelo Grêmio Estudantil.
+            &copy; {new Date().getFullYear()} {SCHOOL_NAME}. Todos os direitos reservados. 
+            <br />Desenvolvido pelo Grêmio Estudantil.
           </div>
         </div>
       </footer>
