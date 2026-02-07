@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Page, NewsItem } from '../types';
 import { NEWS, EVENT_DATES, Icons, SCHOOL_NAME } from '../constants';
@@ -73,6 +74,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-16">
+        {/* News Feed */}
         <div className="lg:col-span-2 space-y-12">
           <div className="flex justify-between items-end border-b-4 border-blue-800 pb-4">
             <div>
@@ -106,6 +108,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
+        {/* Sidebar Info */}
         <div className="space-y-12">
           <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
             <h2 className="text-2xl font-black text-blue-900 border-b-2 border-yellow-400 pb-4 mb-8 italic">Agenda Próxima</h2>
@@ -123,32 +126,99 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 </div>
               ))}
             </div>
+            <button onClick={() => onNavigate('school')} className="w-full mt-10 bg-slate-50 hover:bg-slate-100 text-slate-600 py-3 rounded-2xl font-bold text-xs uppercase tracking-widest transition-colors border border-slate-200">
+              Calendário Completo
+            </button>
           </div>
 
-          <a href="https://instagram.com/americo_franco" target="_blank" rel="noopener noreferrer" className="block group">
+          {/* Call to action for Instagram */}
+          <a 
+            href="https://instagram.com/americo_franco" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="block group"
+          >
             <div className="bg-gradient-to-br from-purple-600 via-pink-600 to-yellow-500 rounded-[2.5rem] p-10 text-white relative overflow-hidden shadow-xl hover:scale-[1.02] transition-transform">
               <div className="relative z-10">
-                <div className="mb-4 text-3xl"><Icons.Instagram /></div>
+                <div className="mb-4 text-3xl">
+                  <Icons.Instagram />
+                </div>
                 <h3 className="text-2xl font-black mb-2 leading-tight">Siga a @americo_franco</h3>
                 <p className="text-white/80 text-sm font-medium leading-relaxed">Fique por dentro dos stories com o dia a dia da escola.</p>
+              </div>
+              <div className="absolute -bottom-4 -right-4 opacity-20 group-hover:rotate-12 transition-transform duration-700 text-6xl">
+                <Icons.Instagram />
               </div>
             </div>
           </a>
         </div>
       </div>
       
+      {/* Grêmio Promotion */}
+      <section className="bg-blue-900 text-white py-20 mt-12">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl sm:text-4xl font-black mb-8 italic uppercase tracking-tighter">O Grêmio Somos Todos Nós</h2>
+          <p className="max-w-2xl mx-auto text-blue-200 mb-12 text-lg">
+            Participe das decisões da escola, proponha ideias e ajude a construir um Américo Franco melhor para cada aluno.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <button onClick={() => onNavigate('about')} className="bg-white text-blue-900 font-black px-12 py-4 rounded-2xl hover:bg-yellow-400 transition-all uppercase tracking-widest text-xs">Conhecer a Gestão</button>
+            <button 
+              onClick={() => onNavigate('feedback')}
+              className="bg-blue-800 border-2 border-blue-700 px-12 py-4 rounded-2xl hover:bg-blue-700 transition-all font-bold uppercase tracking-widest text-xs"
+            >
+              Ouvidoria & Sugestões
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* News Modal */}
       {selectedNews && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-blue-900/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden relative animate-in zoom-in duration-300" onClick={(e) => e.stopPropagation()}>
-            <button onClick={closeModal} className="absolute top-6 right-6 z-10 bg-white/20 hover:bg-white/40 backdrop-blur-md p-2 rounded-full text-slate-800 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          <div 
+            className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden relative animate-in zoom-in duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={closeModal}
+              className="absolute top-6 right-6 z-10 bg-white/20 hover:bg-white/40 backdrop-blur-md p-2 rounded-full text-slate-800 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
-            <div className="h-64 sm:h-80 overflow-hidden"><img src={selectedNews.image} alt={selectedNews.title} className="w-full h-full object-cover" /></div>
+            
+            <div className="h-64 sm:h-80 overflow-hidden">
+              <img src={selectedNews.image} alt={selectedNews.title} className="w-full h-full object-cover" />
+            </div>
+            
             <div className="p-8 sm:p-12 overflow-y-auto max-h-[50vh]">
-              <h2 className="text-3xl font-black text-slate-800 mb-6 leading-tight italic">{selectedNews.title}</h2>
-              <p className="text-slate-600 text-lg leading-relaxed whitespace-pre-line">{selectedNews.content}</p>
+              <div className="flex items-center space-x-3 mb-4">
+                <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                  Notícia Oficial
+                </span>
+                <span className="text-slate-400 text-xs font-bold">{selectedNews.date}</span>
+              </div>
+              <h2 className="text-3xl font-black text-slate-800 mb-6 leading-tight italic">
+                {selectedNews.title}
+              </h2>
+              <p className="text-slate-600 text-lg leading-relaxed whitespace-pre-line">
+                {selectedNews.content}
+              </p>
+              
+              <div className="mt-10 pt-8 border-t border-slate-100 flex justify-between items-center">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Grêmio Estudantil Américo Franco</span>
+                <button 
+                  onClick={closeModal}
+                  className="bg-blue-800 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors text-xs uppercase tracking-widest"
+                >
+                  Fechar
+                </button>
+              </div>
             </div>
           </div>
+          {/* Overlay click to close */}
           <div className="absolute inset-0 -z-10" onClick={closeModal}></div>
         </div>
       )}
