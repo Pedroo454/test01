@@ -1,5 +1,5 @@
 
-export type Page = 'home' | 'school' | 'studies' | 'interclasses' | 'announcements' | 'gallery' | 'about';
+export type Page = 'home' | 'school' | 'studies' | 'interclasses' | 'announcements' | 'gallery' | 'about' | 'feedback';
 
 export interface Announcement {
   id: number;
@@ -15,14 +15,6 @@ export interface NewsItem {
   excerpt: string;
   content: string;
   image: string;
-  date: string;
-}
-
-export interface Album {
-  id: number;
-  title: string;
-  cover: string;
-  images: string[];
   date: string;
 }
 
