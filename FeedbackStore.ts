@@ -13,12 +13,12 @@ export const feedbackStore = {
       timestamp: new Date().toLocaleString('pt-BR'),
     };
     
-    feedbacks.unshift(newEntry); // Adiciona no início
+    feedbacks.unshift(newEntry); // Adiciona no início do mural administrativo
     localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbacks));
     return newEntry;
   },
 
-  // Busca todos os feedbacks
+  // Busca todos os feedbacks (apenas para o mural restrito)
   getAll: (): FeedbackEntry[] => {
     const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : [];
@@ -31,14 +31,28 @@ export const feedbackStore = {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
   },
 
-  // Gera um arquivo para download
+  // Gera um arquivo formatado para fins de relatório administrativo
   exportData: () => {
     const data = feedbackStore.getAll();
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    let content = "RELATÓRIO DE OUVIDORIA - EE AMÉRICO FRANCO\n";
+    content += `Data de Geração: ${new Date().toLocaleString()}\n`;
+    content += "====================================================\n\n";
+
+    data.forEach((fb, index) => {
+      content += `FEEDBACK #${index + 1}\n`;
+      content += `ID: ${fb.id}\n`;
+      content += `DATA: ${fb.timestamp}\n`;
+      content += `CATEGORIA: ${fb.category}\n`;
+      content += `AUTOR: ${fb.anonymous ? 'ANÔNIMO' : fb.name} (${fb.grade})\n`;
+      content += `MENSAGEM: ${fb.message}\n`;
+      content += "----------------------------------------------------\n\n";
+    });
+
+    const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `feedbacks_americo_franco_${new Date().toLocaleDateString().replace(/\//g, '-')}.json`;
+    link.download = `relatorio_ouvidoria_${new Date().toLocaleDateString().replace(/\//g, '-')}.txt`;
     link.click();
     URL.revokeObjectURL(url);
   },
