@@ -39,3 +39,13 @@ export interface GameResult {
   status: 'Finalizado' | 'Agendado';
   date: string;
 }
+
+export interface FeedbackEntry {
+  id: string;
+  name: string;
+  grade: string;
+  category: string;
+  message: string;
+  anonymous: boolean;
+  timestamp: string;
+}
