@@ -1,87 +1,88 @@
 
-import React from 'react';
-import { RECOMMENDED_BOOKS } from '../constants';
+import React, { useState, useEffect } from 'react';
+import { contentStore } from '../contentStore';
+import { Book } from '../types';
 
 const StudiesPage: React.FC = () => {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await contentStore.getBooks();
+      setBooks(data);
+      setIsLoading(false);
+    };
+    load();
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-extrabold text-blue-900 mb-4">Portal de Estudos</h1>
-        <p className="text-slate-600 max-w-2xl mx-auto">Tudo o que você precisa para se preparar para as provas e vestibulares.</p>
+      <div className="text-center mb-20">
+        <h1 className="text-5xl font-black text-blue-900 mb-4 italic uppercase tracking-tighter">Portal de Estudos</h1>
+        <p className="text-slate-500 font-black uppercase text-[10px] tracking-[0.4em]">Foco • Preparação • Vestibular</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Books Section */}
-        <div className="lg:col-span-2 space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div className="lg:col-span-2 space-y-12">
           <section>
-            <h2 className="text-2xl font-bold text-blue-800 mb-6 flex items-center">
-              Livros Recomendados
-            </h2>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-              <table className="w-full text-left">
-                <thead className="bg-slate-50 border-b border-slate-100">
-                  <tr>
-                    <th className="px-6 py-4 text-sm font-bold text-slate-400 uppercase tracking-widest">Obra</th>
-                    <th className="px-6 py-4 text-sm font-bold text-slate-400 uppercase tracking-widest">Autor</th>
-                    <th className="px-6 py-4 text-sm font-bold text-slate-400 uppercase tracking-widest">Série</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {RECOMMENDED_BOOKS.map((book, i) => (
-                    <tr key={i} className="hover:bg-blue-50/50 transition-colors">
-                      <td className="px-6 py-4 font-bold text-slate-800 italic">{book.title}</td>
-                      <td className="px-6 py-4 text-slate-600">{book.author}</td>
-                      <td className="px-6 py-4">
-                        <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold">{book.grade}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="flex items-center justify-between border-b-4 border-blue-900 pb-4 mb-8">
+               <h2 className="text-3xl font-black text-blue-900 italic uppercase">Livros Recomendados</h2>
+               <span className="text-xs font-black text-yellow-600 uppercase tracking-widest">{books.length} Obras</span>
+            </div>
+            
+            <div className="grid grid-cols-1 gap-4">
+              {books.map((book) => (
+                <div key={book.id} className="bg-white p-6 rounded-[2rem] border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between hover:shadow-xl transition-all group">
+                   <div>
+                      <h3 className="text-xl font-black text-slate-800 italic uppercase group-hover:text-blue-700 transition-colors">{book.title}</h3>
+                      <p className="text-slate-400 font-bold text-sm">{book.author}</p>
+                   </div>
+                   <span className="mt-4 sm:mt-0 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest w-fit">
+                      {book.grade}
+                   </span>
+                </div>
+              ))}
+              {books.length === 0 && !isLoading && <p className="text-center py-10 text-slate-300 font-black uppercase text-xs italic">Nenhuma obra cadastrada.</p>}
             </div>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-blue-800 mb-6 flex items-center mt-12">
-              Dicas de Estudo
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { title: "Método Pomodoro", desc: "Estude por 25 min, descanse 5. Mantém o foco e evita cansaço mental." },
-                { title: "Mapas Mentais", desc: "Ideal para matérias de humanas para conectar conceitos e datas importantes." },
-                { title: "Revisão Espaçada", desc: "Revise o conteúdo em 24h, 1 semana e 1 mês para consolidar a memória." },
-                { title: "Ambiente Limpo", desc: "Um local organizado reduz distrações e aumenta a produtividade." },
-              ].map((tip, i) => (
-                <div key={i} className="bg-yellow-50 p-6 rounded-xl border-l-4 border-yellow-400">
-                  <h3 className="font-bold text-blue-900 mb-2">{tip.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{tip.desc}</p>
+             <h2 className="text-3xl font-black text-blue-900 italic uppercase mb-8 border-b-4 border-yellow-400 w-fit pb-2">Dicas da Gestão</h2>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-blue-900 text-white p-8 rounded-[2.5rem] shadow-xl">
+                   <h4 className="font-black text-yellow-400 uppercase italic mb-4">Método Pomodoro</h4>
+                   <p className="text-blue-100 text-sm leading-relaxed">25 min de foco total, 5 min de descanso. Repita 4 vezes. Essencial para simulados.</p>
                 </div>
-              ))}
-            </div>
+                <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200">
+                   <h4 className="font-black text-blue-900 uppercase italic mb-4">Mapas Mentais</h4>
+                   <p className="text-slate-600 text-sm leading-relaxed">Conecte conceitos visualmente para matérias como História e Biologia.</p>
+                </div>
+             </div>
           </section>
         </div>
 
-        {/* Vestibular Sidebar */}
-        <div>
-          <h2 className="text-2xl font-bold text-blue-800 mb-6">Vestibulares</h2>
-          <div className="space-y-6">
-            {[
-              { name: 'ENEM', date: '05 e 12 de Nov', color: 'bg-blue-700' },
-              { name: 'FUVEST', date: '19 de Nov (1ª fase)', color: 'bg-red-700' },
-              { name: 'UNESP', date: '15 de Nov (1ª fase)', color: 'bg-green-700' },
-            ].map((v, i) => (
-              <div key={i} className={`${v.color} text-white p-6 rounded-2xl shadow-lg transform hover:-rotate-1 transition-transform`}>
-                <h3 className="text-2xl font-black mb-1 tracking-tighter">{v.name}</h3>
-                <p className="text-white/80 text-sm font-medium mb-4">Datas das Provas</p>
-                <div className="bg-white/20 p-3 rounded-lg flex justify-between items-center">
-                  <span className="font-bold text-lg">{v.date}</span>
-                  <button className="bg-white text-slate-800 text-xs px-3 py-1 rounded-full font-bold uppercase hover:bg-yellow-400 transition-colors">Site Oficial</button>
-                </div>
-              </div>
-            ))}
-            <div className="p-6 border-2 border-dashed border-slate-200 rounded-2xl text-center">
-              <p className="text-slate-400 text-sm italic">Novas datas serão adicionadas conforme os editais forem publicados.</p>
-            </div>
+        <div className="space-y-10">
+          <div className="bg-blue-800 text-white p-10 rounded-[3rem] shadow-2xl relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12"></div>
+             <h3 className="text-2xl font-black italic uppercase tracking-tighter mb-8 text-yellow-400 border-b border-white/10 pb-4">Vestibulares 2026</h3>
+             <div className="space-y-6">
+                {[
+                  { name: 'ENEM', date: 'Novembro', color: 'bg-white/10' },
+                  { name: 'FUVEST', date: 'Novembro', color: 'bg-white/10' },
+                  { name: 'UNESP', date: 'Dezembro', color: 'bg-white/10' },
+                ].map((v, i) => (
+                  <div key={i} className={`${v.color} p-5 rounded-2xl flex justify-between items-center group hover:bg-yellow-400 hover:text-blue-900 transition-all cursor-pointer`}>
+                    <span className="font-black uppercase italic">{v.name}</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest">{v.date}</span>
+                  </div>
+                ))}
+             </div>
+          </div>
+          
+          <div className="p-8 bg-yellow-400 rounded-[2.5rem] text-blue-900 text-center shadow-lg">
+             <h4 className="font-black text-lg uppercase italic tracking-tighter">Material Grátis</h4>
+             <p className="text-[10px] font-bold uppercase leading-relaxed mt-2">Acesse as apostilas na biblioteca da escola portando sua carteirinha.</p>
           </div>
         </div>
       </div>
