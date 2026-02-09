@@ -1,101 +1,36 @@
+
 import React from 'react';
-import { Announcement, NewsItem, EventDate, Book, GameResult, Album } from './types';
+import { Announcement, NewsItem, EventDate, Book, GameResult } from './types';
 
 export const SCHOOL_NAME = "EE Américo Franco";
-
-export const ALBUMS: Album[] = [
-  { 
-    id: 1,
-    title: "Formatura 3º Ano 2023", 
-    date: "Dez 2023",
-    cover: "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=800",
-    images: [
-      "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=800",
-      "https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=800",
-      "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800",
-      "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800"
-    ]
-  },
-  { 
-    id: 2,
-    title: "Interclasses de Primavera", 
-    date: "Nov 2023",
-    cover: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=800",
-    images: [
-      "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=800",
-      "https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=800",
-      "https://images.unsplash.com/photo-1461891211039-4967d1c237e6?q=80&w=800"
-    ]
-  },
-  { 
-    id: 3,
-    title: "Feira de Profissões", 
-    date: "Out 2023",
-    cover: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=800",
-    images: [
-      "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=800",
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800",
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800"
-    ]
-  }
-];
+export const INSTAGRAM_HANDLE = "@eeamericofranco";
 
 export const ANNOUNCEMENTS: Announcement[] = [
-  { id: 1, title: "Início das Aulas - 1º Semestre 2024", date: "05/02/2024", category: "Geral", content: "Sejam bem-vindos! As aulas iniciam oficialmente para todos os períodos. Compareçam uniformizados e com documento de identificação." },
-  { id: 2, title: "Atualização Cadastral Necessária", date: "10/02/2024", category: "Urgente", content: "Todos os alunos devem atualizar o endereço e telefone na secretaria para fins de emissão do cartão transporte." },
-  { id: 3, title: "Reunião do Grêmio Estudantil", date: "15/02/2024", category: "Evento", content: "Primeira reunião aberta do ano no pátio central durante o intervalo do período matutino e vespertino." },
-  { id: 4, title: "Entrega de Kit Escolar", date: "20/02/2024", category: "Geral", content: "A entrega dos kits enviados pelo estado será realizada por ordem alfabética na biblioteca." },
+  { id: "1", title: "Início das Aulas - 2026", date: "02/02/2026", category: "Geral", content: "Bem-vindos ao ano letivo de 2026! As aulas iniciam oficialmente para todos os períodos." },
+  { id: "2", title: "Atualização Cadastral", date: "10/02/2026", category: "Urgente", content: "Atualize seus dados na secretaria para emissão do Passe Escolar 2026." },
 ];
 
 export const NEWS: NewsItem[] = [
   { 
-    id: 1, 
-    title: "Novo Portal do Aluno Entra no Ar", 
-    excerpt: "A EE Américo Franco agora conta com um canal digital exclusivo para os estudantes acompanharem tudo o que acontece na unidade.", 
-    content: "É com grande satisfação que o Grêmio Estudantil, em parceria com a diretoria, apresenta o novo Portal Estudantil da EE Américo Franco. Este canal foi desenvolvido para centralizar todas as informações relevantes: de avisos urgentes a tabelas de jogos interclasses e materiais de apoio para o ENEM. Nosso objetivo é aumentar a transparência e o engajamento de toda a comunidade escolar.",
+    id: "1", 
+    title: "Portal Estudantil 2026 no Ar", 
+    excerpt: "Novo sistema de gestão do Grêmio permite atualizações instantâneas de placares e estudos.", 
+    content: "O Grêmio Estudantil renovou o portal para 2026. Agora com sincronização cloud em tempo real via Firebase.",
     image: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=800&auto=format&fit=crop", 
-    date: "Fev 2024" 
-  },
-  { 
-    id: 2, 
-    title: "Preparação para o ENEM 2024", 
-    excerpt: "Professores da área de linguagens iniciam ciclo de oficinas focadas em redação nota mil. Confira os horários das monitorias.", 
-    content: "O sucesso no ENEM começa agora! A equipe de Linguagens da nossa escola estruturou um cronograma intensivo de monitorias de redação. As aulas ocorrerão todas as terças e quintas-feiras, no contraturno escolar, na sala de multimídia. Não perca a oportunidade de garantir sua vaga na universidade pública.",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop", 
-    date: "Fev 2024" 
-  },
-  { 
-    id: 3, 
-    title: "Revitalização da Quadra Poliesportiva", 
-    excerpt: "Com apoio do Grêmio, a quadra recebeu nova pintura para os jogos interclasses que se aproximam.", 
-    content: "A prática de esportes é fundamental para o desenvolvimento dos nossos jovens. Por isso, a quadra poliesportiva da EE Américo Franco passou por uma revitalização completa. As marcações de futsal, vôlei e basquete foram refeitas seguindo os padrões oficiais.",
-    image: "https://images.unsplash.com/photo-1544919982-b61976f0ba43?q=80&w=800&auto=format&fit=crop", 
-    date: "Jan 2024" 
+    date: "Fev 2026" 
   },
 ];
 
 export const EVENT_DATES: EventDate[] = [
-  { id: 1, title: "Conselho de Classe (Sem Aula)", date: "25/03", type: "Evento" },
-  { id: 2, title: "Inscrições Interclasses", date: "01/04", type: "Evento" },
-  { id: 3, title: "Simulado 1º Bimestre", date: "15/04", type: "Prova" },
-  { id: 4, title: "Prazo Isenção ENEM", date: "10/05", type: "Vestibular" },
+  { id: "1", title: "Simulado ENEM 2026", date: "15/04", type: "Vestibular" },
 ];
 
 export const RECOMMENDED_BOOKS: Book[] = [
-  { title: "Dom Casmurro", author: "Machado de Assis", grade: "1ª Série" },
-  { title: "Vidas Secas", author: "Graciliano Ramos", grade: "2ª Série" },
-  { title: "Angústia", author: "Graciliano Ramos", grade: "3ª Série" },
-  { title: "Quincas Borba", author: "Machado de Assis", grade: "3ª Série" },
-  { title: "Capitães da Areia", author: "Jorge Amado", grade: "2ª Série" },
+  { id: "1", title: "Dom Casmurro", author: "Machado de Assis", grade: "3ª Série" },
 ];
 
 export const FUTSAL_RESULTS: GameResult[] = [
-  { teamA: "3º A", scoreA: 5, teamB: "3º B", scoreB: 2, status: "Finalizado", date: "15/11/23" },
-  { teamA: "2º C", scoreA: 1, teamB: "1º A", scoreB: 4, status: "Finalizado", date: "16/11/23" },
-];
-
-export const CHESS_RESULTS: GameResult[] = [
-  { teamA: "Lucas (3ºB)", scoreA: 1, teamB: "Mateus (2ºA)", scoreB: 0, status: "Finalizado", date: "20/11/23" },
+  { id: "1", teamA: "3º A", scoreA: 2, teamB: "3º B", scoreB: 1, status: "Finalizado", date: "10/03/26", sport: 'futsal' },
 ];
 
 export const Icons = {
