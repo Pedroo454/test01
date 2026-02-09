@@ -13,7 +13,7 @@ const SchoolPage: React.FC = () => {
         <div className="animate-fade-in">
           <h2 className="text-2xl font-bold text-blue-800 mb-6 flex items-center">
             <span className="w-8 h-1 bg-yellow-400 mr-3"></span>
-            Calendário Letivo 2024
+            Calendário Letivo 2026
           </h2>
           <div className="space-y-6">
             {[
